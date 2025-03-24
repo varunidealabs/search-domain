@@ -160,11 +160,13 @@ if search_triggered and domain_query:
                     # Domain name with optional badge
                     if domain["available"]:
                         st.write(f"**{domain['name']}.{domain['tld']}** 🟢")
+                        st.markdown("---")
                     
                 with col2:
                     # Price
                     if domain["available"]:
                         st.write(f"**{price}**")
+                        st.markdown("---")
                 
                 with col3:
                     # Action button
