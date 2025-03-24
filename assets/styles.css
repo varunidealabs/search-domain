@@ -1,0 +1,199 @@
+/* Main container styling */
+.main {
+    background-color: #fff;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+}
+
+/* Header styling */
+.header-container {
+    padding: 40px 0 20px 0;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-heading {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #8f0303;
+    margin-bottom: 0;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+}
+
+/* Search form styling */
+.search-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1200px;
+    gap: 10px;
+    position: relative;
+}
+
+/* Streamlit form styling */
+div[data-testid="stForm"] {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+div[data-testid="stForm"] > div {
+    padding-bottom: 0 !important;
+}
+
+/* Input field styling */
+div[data-testid="stTextInput"] > div > div > input {
+    border-radius: 8px !important;
+    border: 1px solid #ddd !important;
+    padding: 12px 15px !important;
+    font-size: 16px !important;
+    background-color: #fff !important;
+}
+
+div[data-testid="stTextInput"] > div > div > input:focus {
+    border-color: #4a89dc !important;
+    box-shadow: 0 0 0 2px rgba(74, 137, 220, 0.2) !important;
+}
+
+/* Submit button styling */
+div[data-testid="stForm"] button[type="submit"] {
+    background-color: #ff5a5f !important;
+    color: white !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+    padding: 8px 16px !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+div[data-testid="stForm"] button[type="submit"]:hover {
+    background-color: #ff4448 !important;
+}
+
+/* MultiSelect styling */
+div[data-testid="stMultiSelect"] {
+    min-width: 200px !important;
+}
+
+div[data-testid="stMultiSelect"] > div {
+    border-radius: 8px !important;
+    border: 1px solid #ddd !important;
+}
+
+div[data-testid="stMultiSelect"] > div > div[data-baseweb="tag"] {
+    background-color: #f44336 !important;
+    border-radius: 4px !important;
+}
+
+div[data-testid="stMultiSelect"] > div > div[data-baseweb="tag"] > span {
+    color: white !important;
+}
+
+/* Hide the form's submit button - we'll use custom positioning */
+button[kind="formSubmit"] {
+    position: absolute !important;
+    top: -1000px !important;
+    left: -1000px !important;
+}
+
+/* Domain result styling */
+.domain-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+.domain-row:hover {
+    background-color: #f8f9fa;
+}
+
+.domain-name {
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.domain-label {
+    background-color: #e6f7e6;
+    color: #28a745;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.domain-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 30px;
+    text-align: right;
+    min-width: 100px;
+}
+
+.domain-action {
+    background-color: transparent;
+    border: 1px solid #28a745;
+    color: #28a745;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.domain-action:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Results container */
+.results-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* Hide Streamlit elements we don't need */
+div.block-container {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: 100%;
+}
+
+/* Adjust header spacing */
+div[data-testid="stVerticalBlock"] > div:nth-child(1) {
+    padding-bottom: 0 !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 36px;
+    }
+    
+    .search-row {
+        flex-direction: column;
+    }
+    
+    .domain-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .domain-price {
+        margin: 10px 0;
+    }
+}

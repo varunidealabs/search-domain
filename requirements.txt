@@ -1,0 +1,12 @@
+# Core dependencies
+streamlit
+requests
+python-dotenv
+
+# AI integration
+openai
+
+# Utilities
+python-whois
+
+# Development tools
