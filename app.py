@@ -144,7 +144,7 @@ def trigger_advisor_search():
 def select_suggestion(suggestion):
     st.session_state.selected_suggestion = suggestion
     st.session_state.active_tab = "direct_search"
-    st.experimental_rerun()
+    st.rerun()
 
 def set_active_tab(tab):
     st.session_state.active_tab = tab
