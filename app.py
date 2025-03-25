@@ -144,7 +144,7 @@ def trigger_advisor_search():
 def select_suggestion(suggestion):
     st.session_state.selected_suggestion = suggestion
     st.session_state.active_tab = "direct_search"
-    st.rerun()
+    st.experimental_rerun()
 
 def set_active_tab(tab):
     st.session_state.active_tab = tab
@@ -155,19 +155,17 @@ st.markdown('<h1 class="main-title">SEARCH DOMAIN.<br>Build your business.</h1>'
 # Create tabs for different search methods
 col1, col2 = st.columns([1, 1])  # Equal width columns side by side
 with col1:
-    if st.button("Domain Advisor", on_click=lambda: set_active_tab("advisor"), 
-                 type="secondary" if st.session_state.active_tab != "advisor" else "primary",
-                 help="Get AI recommendations for your business name",
-                 use_container_width=True):  # Make button fill the column
-        pass
-
-with col2:
     if st.button("Domain Search", on_click=lambda: set_active_tab("direct_search"), 
                  type="secondary" if st.session_state.active_tab != "direct_search" else "primary",
                  use_container_width=True):  # Make button fill the column
         pass
 
-
+with col2:
+    if st.button("AI Domain Advisor", on_click=lambda: set_active_tab("advisor"), 
+                 type="secondary" if st.session_state.active_tab != "advisor" else "primary",
+                 help="Get AI recommendations for your business name",
+                 use_container_width=True):  # Make button fill the column
+        pass
 
 st.markdown("<hr>", unsafe_allow_html=True)
 
@@ -320,12 +318,12 @@ if st.session_state.active_tab == "direct_search":
 elif st.session_state.active_tab == "advisor":
     
     with st.container():
-        # Add the sample prompt here, before the text area
-
         # Use the example text as default value for business_description
+        if "business_description" not in st.session_state:
+            st.session_state.business_description = example_text
+
         business_description = st.text_area(
             "**Describe your business**",
-            value=st.session_state.business_description,
             placeholder="Example: I'm starting a bakery called 'Tom Bakers' that specializes in artisanal bread and pastries in New York City...",
             height=100,
             label_visibility="visible",
