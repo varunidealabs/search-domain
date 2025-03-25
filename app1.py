@@ -16,7 +16,6 @@ except ImportError:
 # Page configuration
 st.set_page_config(
     page_title="Domain Finder - Find Your Perfect Domain",
-    page_icon="🔍",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -147,14 +146,14 @@ def set_active_tab(tab):
 st.markdown('<h1 class="main-title">SEARCH DOMAIN.<br>Build your business.</h1>', unsafe_allow_html=True)
 
 # Create tabs for different search methods
-col1, col2 = st.columns([1, 4])
+col1, col2 = st.columns([1, 3])
 with col1:
     if st.button("Domain Search", on_click=lambda: set_active_tab("direct_search"), 
                  type="secondary" if st.session_state.active_tab != "direct_search" else "primary"):
         pass
 
 with col2:
-    if st.button("Domain Advisor (AI-Powered)", on_click=lambda: set_active_tab("advisor"), 
+    if st.button("AI Domain Advisor", on_click=lambda: set_active_tab("advisor"), 
                  type="secondary" if st.session_state.active_tab != "advisor" else "primary",
                  help="Get AI recommendations for your business name"):
         pass
@@ -184,7 +183,7 @@ if st.session_state.active_tab == "direct_search":
 
     # TLD selection row (below search)
     tld_options = st.multiselect(
-        "Select TLDs to search",
+        "**Select TLDs to search**",
         all_tlds,
         default=[]  # No default selection
     )
@@ -219,6 +218,7 @@ if st.session_state.active_tab == "direct_search":
                 tld_list = [tld.replace(".", "") for tld in tld_options]
             
             # Show progress
+            st.markdown('<style>.stSpinner p { color: green !important; }</style>', unsafe_allow_html=True)
             with st.spinner(f"Checking availability for {domain_query}..."):
                 # Check domain availability
                 results = check_domain_availability(domain_query, tld_list)
@@ -228,7 +228,7 @@ if st.session_state.active_tab == "direct_search":
                 unavailable_domains = [r for r in results if not r["available"]]
             
             # Display results
-            st.subheader("Search Results")
+            st.markdown("<h3 style='color: green;'>Available Domains</h3>", unsafe_allow_html=True)
             
             # Create a clean container for results
             results_container = st.container()
@@ -264,6 +264,8 @@ if st.session_state.active_tab == "direct_search":
                     # Use a lower similarity threshold to get more results
                     similarity_threshold = 70
                     
+                    st.markdown('<style>.stSpinner p { color: green !important; }</style>', unsafe_allow_html=True)
+                
                     # Find similar domain suggestions
                     with st.spinner("Finding similar available domains..."):
                         similar_results = find_similar_domains(
@@ -285,7 +287,7 @@ if st.session_state.active_tab == "direct_search":
                             
                             with col1:
                                 # Domain name with similarity
-                                st.write(f"**{domain['name']}.{domain['tld']}** ✓ ({similarity}% match)")
+                                st.write(f"**{domain['name']}.{domain['tld']}**")
                             
                             with col2:
                                 # Price
@@ -305,13 +307,11 @@ if st.session_state.active_tab == "direct_search":
 
 # Domain Advisor Tab
 elif st.session_state.active_tab == "advisor":
-    st.markdown("<p class='tab-subheader'>Tell us about your business, and we'll suggest the perfect domain names</p>", unsafe_allow_html=True)
     
     with st.container():
-        st.markdown("<div class='domain-advisor-container'>", unsafe_allow_html=True)
         
         business_description = st.text_area(
-            "Describe your business",
+            "**Describe your business**",
             placeholder="Example: I'm starting a bakery called 'Tom Bakers' that specializes in artisanal bread and pastries in New York City...",
             height=100,
             label_visibility="visible"
@@ -319,7 +319,7 @@ elif st.session_state.active_tab == "advisor":
         
         col1, col2, col3 = st.columns([3, 1, 3])
         with col2:
-            advisor_search_clicked = st.button("Get Domain Suggestions", 
+            advisor_search_clicked = st.button("Get Suggestions", 
                                     type="primary", 
                                     use_container_width=True, 
                                     on_click=trigger_advisor_search)
@@ -332,6 +332,7 @@ elif st.session_state.active_tab == "advisor":
         if not business_description:
             st.error("Please describe your business to get domain suggestions")
         else:
+            st.markdown('<style>.stSpinner p { color: green !important; }</style>', unsafe_allow_html=True)
             with st.spinner("Our AI is thinking of the perfect domain names for your business..."):
                 # Get domain suggestions from AI service
                 domain_suggestions = get_domain_suggestions(business_description)
@@ -339,7 +340,7 @@ elif st.session_state.active_tab == "advisor":
             
             if domain_suggestions:
                 st.subheader("Recommended Domain Names")
-                st.write("Select a domain name to check its availability:")
+                st.write("Click **'Check'** on any domain name you'd like to register:")
                 
                 # Display domain suggestions
                 for i, suggestion in enumerate(domain_suggestions):
@@ -353,6 +354,5 @@ elif st.session_state.active_tab == "advisor":
                     
                     st.markdown("<hr>", unsafe_allow_html=True)
                 
-                st.info("💡 Click 'Check' on any domain to see its availability across different TLDs.")
             else:
                 st.error("Sorry, we couldn't generate domain suggestions. Please try a more detailed description.")
